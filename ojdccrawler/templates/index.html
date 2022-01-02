@@ -6,6 +6,7 @@
 - Variables:
     host_url: str
     dics: DicEntry
+    form: Form
 - Extend:
     _temp/_page-base.html
     _temp/_script-masonry.html
@@ -20,6 +21,16 @@
 {% endblock %}
 
 {% block main-center %}
+    <form class="ojdc-form d-flex flex-column justify-content-center" action="" method="post">
+        {% csrf_token %}
+        <table class="text-center align-self-center">
+            {{ form }}
+        </table>
+        <button class="btn btn-lg btn-primary btn-rounded text-center align-self-center m-4" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> &nbsp; 搜尋
+        </button>
+    </form>
+    <hr class="my-4">
     {% include "_temp/_mixin-cards-masonry.html" with dics=dics %}
 {% endblock %}
 

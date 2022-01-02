@@ -63,6 +63,7 @@ class Dic(abc.ABC):
 class WeblioDic(Dic):
     def __init__(self):
         super().__init__('https://www.weblio.jp', 'weblio 国語辞典')
+        self._blacklist = ['百科事典', 'ウィキペディア', '日本の自動車技術240選']
 
     @classmethod
     def _search_url(cls, text: str) -> str:
@@ -80,7 +81,7 @@ class WeblioDic(Dic):
             title = titles[i]
             if not title:
                 continue
-            if title == '百科事典':
+            if title in self._blacklist:
                 continue
             dic = dic.clone()
             self._handle_dic(dic)

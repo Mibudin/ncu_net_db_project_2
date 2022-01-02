@@ -148,6 +148,34 @@
     padding-bottom: 1rem;
 }
 
+/********/
+/* Form */
+/********/
+
+.ojdc-form table
+{
+    min-width: 40%;
+}
+
+.ojdc-form input[type="text"]
+{
+    min-width: 100%;
+    padding: 8px 12px;
+    margin: 12px 0;
+    background-color: #262626;
+    color: #fbfbfb;
+    border: thick solid #424242;
+    border-radius: 18px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+.ojdc-form .helptext
+{
+    font-size: 0.85rem;
+}
+
 /**************/
 /* Scroll Bar */
 /**************/
