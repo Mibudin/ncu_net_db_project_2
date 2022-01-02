@@ -1,0 +1,28 @@
+{# The root page of the `ojdccrawler` #}
+{% extends "_temp/_page-base.html" %}
+{% comment %}
+- URL:
+    `ojdc/`
+- Variables:
+    host_url: str
+    dics: DicEntry
+- Extend:
+    _temp/_page-base.html
+    _temp/_script-masonry.html
+- Blocks:
+    title-text*
+    main-center*
+    script-other*
+{% endcomment %}
+
+{% block title-text %}
+    ~ OJDC ~
+{% endblock %}
+
+{% block main-center %}
+    {% include "_temp/_mixin-cards-masonry.html" with dics=dics %}
+{% endblock %}
+
+{% block script-other %}
+    {% include "_temp/_script-masonry.html" %}
+{% endblock %}

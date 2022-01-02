@@ -1,0 +1,199 @@
+/* The universal CSS settings */
+
+/********************************/
+/* Basic universal CSS settings */
+/********************************/
+
+/* Basic universal settings */
+.ojdc-universal
+{
+    font-family:
+        /* Safari for OS X and iOS (San Francisco) */
+        -apple-system,
+        /* Chrome < 56 for OS X (San Francisco) */
+        "BlinkMacSystemFont",
+        /* Windows */
+        "Segoe UI",
+        /* Android */
+        "Roboto",
+        /* Basic web fallback */
+        "Helvetica Neue", "Helvetica", "Arial",
+        /* Chinese (Traditional) in OS X >= 10.6 */
+        "黑體-繁", "Heiti TC",
+        /* Chinese (Traditional) in OS X < 10.6 */
+        "儷黑 Pro", "LiHei Pro",
+        /* Chinese (Traditional) in Google Noto */
+        "Noto Sans CJK TC",
+        /* Chinese (Traditional) in Windows */
+        "微軟正黑體", "Microsoft JhengHei",
+        /* Chinese (Traditional) in Linux */
+        "文泉驛正黑", "WenQuanYi Zen Hei",
+        /* Universal */
+        sans-serif,
+        /* Emoji fonts */
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* color: black; */
+    /*font-weight: 350;*/
+}
+.ojdc-universal :lang(jp):not(i)
+{
+    font-family:
+        /* Safari for OS X and iOS (San Francisco) */
+        -apple-system,
+        /* Chrome < 56 for OS X (San Francisco) */
+        "BlinkMacSystemFont",
+        /* Windows */
+        "Segoe UI",
+        /* Android */
+        "Roboto",
+        /* Basic web fallback */
+        "Helvetica Neue", "Helvetica", "Arial",
+        /* Japanese in OS X */
+        "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka",
+        /* Japanese in Google Noto */
+        "Noto Sans CJK JP",
+        /* Japanese in Windows and OS X */
+        "YuGothic" , "Yu Gothic",
+        "游ゴシック" , "游ゴシック体" , "YuGothic" , "Yu Gothic",
+        "メイリオ", "Meiryo",
+        /* Japanese in older Windows */
+        "ＭＳ Ｐゴシック", "MS PGothic", "ＭＳ ゴシック" , "MS Gothic",
+        /* Japanese in Linux */
+        "TakaoPGothic",
+        /* Chinese (Traditional) in OS X >= 10.6 */
+        "黑體-繁", "Heiti TC",
+        /* Chinese (Traditional) in OS X < 10.6 */
+        "儷黑 Pro", "LiHei Pro",
+        /* Chinese (Traditional) in Google Noto */
+        "Noto Sans CJK TC",
+        /* Chinese (Traditional) in Windows */
+        "微軟正黑體", "Microsoft JhengHei",
+        /* Chinese (Traditional) in Linux */
+        "文泉驛正黑", "WenQuanYi Zen Hei",
+        /* Universal */
+        sans-serif,
+        /* Emoji fonts */
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* color: black; */
+    /*font-weight: 400;*/
+}
+
+/*************/
+/* Jumbotron */
+/*************/
+
+.ojdc-jumbotron
+{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* .taball-jumbotron h1,
+.ojdc-jumbotron h2,
+.ojdc-jumbotron h3,
+.ojdc-jumbotron h4,
+.ojdc-jumbotron h5,
+.ojdc-jumbotron h6
+{
+    margin-bottom: 3rem !important;
+} */
+
+/*************/
+/* Main Part */
+/*************/
+
+.ojdc-main-tri
+{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/*!* Table associated *!*/
+/*.ojdc-table-card-header{}*/
+/*.ojdc-table-card-header-text{}*/
+/*.ojdc-table-card-id{}*/
+/*.ojdc-table-card-scores{}*/
+/*.ojdc-table-card-dists{}*/
+/*.ojdc-table-card-time{}*/
+
+.ojdc-table-fixed
+{
+    table-layout: fixed;
+}
+
+.ojdc-table-fixed th,
+.ojdc-table-fixed td
+{
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/********/
+/* Card */
+/********/
+
+.ojdc-card img
+{
+    max-width: 100%;
+    height: auto;
+}
+
+/**********/
+/* Footer */
+/**********/
+
+.ojdc-footer
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+/**************/
+/* Scroll Bar */
+/**************/
+
+::-webkit-scrollbar
+{
+    width: 15px;
+    height: 15px;
+}
+
+::-webkit-scrollbar-button
+{
+    background: #2B2B2B;
+}
+
+::-webkit-scrollbar-button:hover
+{
+    background: #393939;
+}
+
+::-webkit-scrollbar-track
+{
+    background: #505050;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: #808080; 
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    background: #B0B0B0;
+}
+
+::-webkit-scrollbar-corner
+{
+    background: #1F1F1F;
+}
+
+::-webkit-resizer
+{
+    background: #A18E39;
+}
+
+::-webkit-resizer:hover
+{
+    background: #D3BC55;
+}

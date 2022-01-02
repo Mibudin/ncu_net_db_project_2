@@ -1,0 +1,51 @@
+{# The default footer #}
+{% comment %}
+- Variables:
+    host_url: str
+{% endcomment %}
+
+<div class="ojdc-footer shadow-2-strong text-center w-100 bg-dark text-muted">
+    <small class="d-none d-sm-inline"> 線上日文字典大全　OJDC </small>
+    <div class="d-inline d-sm-none">
+        <small>線上日文字典大全<br>OJDC</small>
+    </div>
+    <br>
+    <small>網站：</small>
+    <a class="badge rounded-pill text-dark" href="{{ host_url }}"
+       style="background-color: #a3a3a3 !important;">{{ host_url }}</a>
+    <hr>
+
+    <div class="d-none d-sm-inline">
+        <small>國立中央大學　National Central University</small>
+        <br>
+        <small>網站：</small>
+        <a class="badge rounded-pill text-dark" href="https://www.ncu.edu.tw"
+           style="background-color: #a3a3a3 !important;">
+            www.ncu.edu.tw
+        </a>
+        <br>
+        <small>地址：( 32001 / 320317 ) 桃園市中壢區中大路 300 號 ． 總機：(03)-422-7157</small>
+    </div>
+    <div class="d-inline d-sm-none">
+        <small>國立中央大學<br>National Central University</small>
+        <br>
+        <small>網站：</small>
+        <a class="badge rounded-pill text-dark" href="https://www.ncu.edu.tw"
+           style="background-color: #a3a3a3 !important;">
+            www.ncu.edu.tw
+        </a>
+        <br>
+        <small>地址：( 32001 / 320317 ) 桃園市中壢區中大路 300 號<br>總機：(03)-422-7157</small>
+    </div>
+    <hr>
+
+    <small class="d-none d-sm-inline"> 線上日文字典大全　Online Japanese Dictionary Collection - OJDC</small>
+    <div class="d-inline d-sm-none">
+        <small>線上日文字典大全<br>>Online Japanese Dictionary Collection - OJDC</small>
+    </div>
+    <br>
+    <small>&copy; 2022 Copyright:</small>
+    <a class="badge rounded-pill text-dark" href="{{ host_url }}" style="background-color: #a3a3a3 !important;">
+        {{ host_url }}
+    </a>
+</div>

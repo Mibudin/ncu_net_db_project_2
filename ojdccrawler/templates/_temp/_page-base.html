@@ -1,0 +1,99 @@
+{# The base template of the main pages #}
+{% comment %}
+- Variables:
+    host_url: str
+- Includes:
+    _temp/_meta-default.html
+    _temp/_link-css-mdb.html
+    _temp/_link-css-default.html
+    _temp/_link-fontawesome.html
+    _temp/_link-favicon.html
+    _temp/_heading-default.html
+    _temp/_footer-default.html
+    _temp/_script-mdb-default.html
+    _temp/_script-default.html
+- Blocks:
+    link-css-other
+    link-other
+    title-text
+    header-heading*
+    main-left
+    main-center
+    main-right
+    footer*
+    script-other
+{% endcomment %}
+
+<!DOCTYPE html>
+{# `lang` should be set to `zh-hant-TW` #}
+<html lang="zh-Hant-TW">
+{# The head of the page #}
+<head>
+    {# The meta defines #}
+    {% include "_temp/_meta-default.html" %}
+    {# Load static resources #}
+    {#{% load static %}#}
+    {# The link to Bootstrap CSS #}
+    {% include "_temp/_link-css-mdb.html" %}
+    {# The link to default CSS #}
+    {% include "_temp/_link-css-dafault.html" %}
+    {# The link to FontAwesome CSS #}
+    {% include "_temp/_link-fontawesome.html" %}
+    {# The link to other CSS #}
+    {% block link-css-other %}{% endblock %}
+    {# The link to favicon #}
+    {% include "_temp/_link-favicon.html" %}
+    {# The link to other things #}
+    {% block link-other %}{% endblock %}
+    {# The title of the page #}
+    <title>
+        {# Just enter the title text #}
+        {% block title-text %}{% endblock %}
+    </title>
+</head>
+{# The body of the page #}
+<body class="ojdc-universal text-light">
+    {# The main container of the page #}
+    <div class="d-flex flex-column" style="min-height: 100vh;">
+        {# The header of the page#}
+        <header>
+            {% block header-heading %}
+                {% include "_temp/_heading-default.html" %}
+            {% endblock %}
+        </header>
+        {# The main of the page #}
+        <main style="flex: auto;">
+            {# The main content of the main #}
+            <div class="container">
+                <div class="row ojdc-main-tri">
+                    <div class="col-1 col-xl-1 col-xxl-1">
+                        {# The left pert of the main #}
+                        {% block main-left %}{% endblock %}
+                    </div>
+                    <div class="col-10 col-xl-10 col-xxl-10">
+                        {# The center part of the main #}
+                        {% block main-center %}{% endblock %}
+                    </div>
+                    <div class="col-1 col-xl-1 col-xxl-1">
+                        {# The right part of the main #}
+                        {% block main-right %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </main>
+        {# The footer of the page #}
+        <footer>
+            {# The footer of the page #}
+            {% block footer %}
+                {% include "_temp/_footer-default.html" with host_url=host_url %}
+            {% endblock %}
+        </footer>
+    </div>
+    {# The script of the Bootstrap #}
+    {% include "_temp/_script-mdb-default.html" %}
+    {# The script of the default page #}
+    {% include "_temp/_script-default.html" %}
+    {# The other script of the page #}
+    {% block script-other %}{% endblock %}
+</body>
+</html>

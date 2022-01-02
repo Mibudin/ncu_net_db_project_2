@@ -2,10 +2,21 @@ from urllib.parse import quote
 from pyquery import PyQuery
 import abc
 import re
+from dataclasses import dataclass
+
+
+@dataclass
+class DicEntry:
+    src: str = ""
+    url: str = ""
+    title: str = ""
+    subtitle: str = ""
+    dic: str = ""
 
 
 class Dic(abc.ABC):
-    def __init__(self, host: str):
+    def __init__(self, host: str, src: str):
+        self._src: str = src
         self._host: str = host
         self._protocol: str = 'https' if host.startswith('https') else 'http'
 
@@ -14,9 +25,8 @@ class Dic(abc.ABC):
     def _search_url(cls, text: str) -> str:
         pass
 
-    # TODO: Different types for different dictionary
     @abc.abstractmethod
-    def search(self, text: str) -> list[tuple[str, str]]:
+    def search(self, text: str) -> list[DicEntry]:
         pass
 
     def _handle_dic(self, dic: PyQuery) -> None:
@@ -52,14 +62,15 @@ class Dic(abc.ABC):
 
 class WeblioDic(Dic):
     def __init__(self):
-        super().__init__('https://www.weblio.jp')
+        super().__init__('https://www.weblio.jp', 'weblio 国語辞典')
 
     @classmethod
     def _search_url(cls, text: str) -> str:
         return 'https://www.weblio.jp/content/' + quote(text)
 
-    def search(self, text: str) -> list[tuple[str, str]]:
-        doc = PyQuery(self._search_url(text))
+    def search(self, text: str) -> list[DicEntry]:
+        url = self._search_url(text)
+        doc = PyQuery(url)
         if not doc:
             return []
 
@@ -73,21 +84,22 @@ class WeblioDic(Dic):
                 continue
             dic = dic.clone()
             self._handle_dic(dic)
-            dics.append((title, dic.html()))
+            dics.append(DicEntry(src=self._src, url=url, title=title, dic=dic.html()))
 
         return dics
 
 
 class GogenyuraiDic(Dic):
     def __init__(self):
-        super().__init__('https://gogen-yurai.jp')
+        super().__init__('https://gogen-yurai.jp', '語源由来辞典')
 
     @classmethod
     def _search_url(cls, text: str) -> str:
         return 'https://gogen-yurai.jp/?s=' + quote(text)
 
-    def search(self, text: str) -> list[tuple[str, str]]:
-        doc = PyQuery(self._search_url(text))
+    def search(self, text: str) -> list[DicEntry]:
+        url = self._search_url(text)
+        doc = PyQuery(url)
         if not doc:
             return []
 
@@ -104,6 +116,7 @@ class GogenyuraiDic(Dic):
             title = doc2('#post_title>h1').html()
             dic = doc2('#article>.post_content').clone()
             dic('#single_banner_shortcode').remove()
+            dic('#post_pagination').prev('p').remove()
             dic('#post_pagination').remove()
 
             pages = [self._full_link(node, 'href')
@@ -114,10 +127,12 @@ class GogenyuraiDic(Dic):
                     continue
                 dic.append(doc2('#article>.post_content').clone().html())
                 dic('#single_banner_shortcode').remove()
+                dic('#post_pagination').prev('p').remove()
                 dic('#post_pagination').remove()
 
             self._handle_dic(dic)
-            dics.append((title, dic.html()))
+            dics.append(DicEntry(src=self._src, url=url, title=self._src,
+                                 subtitle=title, dic=dic.html()))
 
         return dics
 
