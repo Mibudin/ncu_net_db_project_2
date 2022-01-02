@@ -1,4 +1,4 @@
-from urllib.parse import quote
+from urllib.parse import quote_plus
 from pyquery import PyQuery
 import abc
 import re
@@ -30,10 +30,11 @@ class Dic(abc.ABC):
         pass
 
     def _handle_dic(self, dic: PyQuery) -> None:
-        for node in dic('a').items():
-            self._fill_links(node)
-        for node in dic('img').items():
-            self._fill_links(node)
+        dic.make_links_absolute(base_url=self._host)
+        # for node in dic('a').items():
+        #     self._fill_links(node)
+        # for node in dic('img').items():
+        #     self._fill_links(node)
 
     def _fill_links(self, doc: PyQuery) -> None:
         if doc.attr('href'):
@@ -67,7 +68,7 @@ class WeblioDic(Dic):
 
     @classmethod
     def _search_url(cls, text: str) -> str:
-        return 'https://www.weblio.jp/content/' + quote(text)
+        return 'https://www.weblio.jp/content/' + quote_plus(text)
 
     def search(self, text: str) -> list[DicEntry]:
         url = self._search_url(text)
@@ -96,7 +97,7 @@ class GogenyuraiDic(Dic):
 
     @classmethod
     def _search_url(cls, text: str) -> str:
-        return 'https://gogen-yurai.jp/?s=' + quote(text)
+        return 'https://gogen-yurai.jp/?s=' + quote_plus(text)
 
     def search(self, text: str) -> list[DicEntry]:
         url = self._search_url(text)
@@ -140,8 +141,8 @@ class GogenyuraiDic(Dic):
 
 def test():
     weblio = WeblioDic()
-    dics = weblio.search('ほし')
-    print(dics[3])
+    dics = weblio.search('風')
+    print(dics[0])
 
 
 def test2():
@@ -151,6 +152,28 @@ def test2():
     print(dics[5])
 
 
+def test3():
+    html = '''
+    <html>
+    <head><title>The Dormouse's story</title></head>
+    <body>
+        <p class="title"><b>The Dormouse's story</b></p>
+            <p class="story">Once upon a time there were three little sisters; and their names were
+            <a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>,
+            <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
+            <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
+            and they lived at the bottom of a well.
+        </p>
+        <p class="story">...</p>
+        <div class="SgkdjImg"> <img src="https://weblio.hs.llnwd.net/e7/img/dict/sgkdj/images/103047.jpg" alt="風の画像"/>
+        <div class="SgkdjImgMidaghigo"/> </div>
+    </div>'''
+    doc = PyQuery(html)
+    print(doc.html())
+
+
 if __name__ == '__main__':
+    pass
     # test()
-    test2()
+    # test2()
+    # test3()

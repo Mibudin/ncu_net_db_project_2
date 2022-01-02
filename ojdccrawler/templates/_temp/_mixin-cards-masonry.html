@@ -1,38 +1,45 @@
 {# The mixin of the cards in Marsonry layout #}
 {% comment %}
 - Variables:
-    dics: DicEntry
+    query: str
+    dics: list[DicEntry]
 {% endcomment %}
 
 <div class="row flex-wrap justify-content-evenly" data-masonry='{"percentPosition": true}'>
-{% for dic in dics %}
-    {% for ent in dic %}
-        <div class="col-sm-12 col-md-12 col-xxl-6 mb-4">
-            <div class="card ojdc-card" lang="jp">
-                <div class="ojdc-table-card-header card-header text-center">
-                    <span class="" data-mdb-toggle="tooltip" data-mdb-html="true"
-                          title="出典：《<b>{{ ent.src }}</b>》">
-                        <i class="fa-solid fa-book"></i>
-                        <span class="ojdc-table-card-header-text">
-                            《{{ ent.title }}》
-                        </span>
-                        <i class="fa-solid fa-book"></i>
+{% for ent in dics %}
+    <div class="col-sm-12 col-md-12 col-xxl-6 mb-4">
+        <div class="card ojdc-card" lang="jp">
+            <div class="ojdc-table-card-header card-header text-center">
+                <span class="" data-mdb-toggle="tooltip" data-mdb-html="true"
+                      title="出典：《<b>{{ ent.src }}</b>》">
+                    <i class="fa-solid fa-book"></i>
+                    <span class="ojdc-table-card-header-text">
+                        《{{ ent.title }}》
                     </span>
-                </div>
-                <div class="card-body">
-                    {% if ent.subtitle %}
-                        <h2 class="card-title">{{ ent.subtitle}}</h2>
-                    {% endif %}
-                    <div>{{ ent.dic|safe }}</div>
-                </div>
-                <div class="card-footer text-muted text-center">
-                    出典：《<a href="{{ ent.url }}">{{ ent.src }}</a>》
-                </div>
+                    <i class="fa-solid fa-book"></i>
+                </span>
+            </div>
+            <div class="card-body">
+                {% if ent.subtitle %}
+                    <h2 class="card-title">{{ ent.subtitle }}</h2>
+                {% endif %}
+                <div>{{ ent.dic|safe }}</div>
+            </div>
+            <div class="card-footer text-muted text-center">
+                出典：《<a href="{{ ent.url }}">{{ ent.src }}</a>》
             </div>
         </div>
-    {% empty %}
-    {% endfor %}
+    </div>
 {% empty %}
-    {% lorem 5 p %}
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-danger align-self-center">
+            <h4 class="alert-heading">
+                <i class="fa-solid fa-circle-xmark me-3"></i>沒有結果
+            </h4>
+            <p>抱歉，並沒有找到關於「<span class="font-weight-bolder" lang="jp">{{ query }}</span>」的任何結果。</p>
+            <hr>
+            <p class="mb-0">請試著輸入比較簡短或常見日文單字詞，謝謝。</p>
+        </div>
+    </div>
 {% endfor %}
 </div>

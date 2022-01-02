@@ -4,8 +4,9 @@
 - URL:
     `ojdc/`
 - Variables:
+    query: str
     host_url: str
-    dics: DicEntry
+    dics: list[DicEntry]
     form: Form
 - Extend:
     _temp/_page-base.html
@@ -17,7 +18,7 @@
 {% endcomment %}
 
 {% block title-text %}
-    ~ OJDC ~
+    {% if query %}{{ query }}｜{% endif %}~ OJDC ~
 {% endblock %}
 
 {% block main-center %}
@@ -26,12 +27,14 @@
         <table class="text-center align-self-center">
             {{ form }}
         </table>
-        <button class="btn btn-lg btn-primary btn-rounded text-center align-self-center m-4" type="submit">
+        <button class="btn btn-lg btn-primary btn-rounded text-center align-self-center m-4 font-weight-normal" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i> &nbsp; 搜尋
         </button>
     </form>
-    <hr class="my-4">
-    {% include "_temp/_mixin-cards-masonry.html" with dics=dics %}
+    {% if query %}
+        <hr class="my-4">
+        {% include "_temp/_mixin-cards-masonry.html" with dics=dics query=query %}
+    {% endif %}
 {% endblock %}
 
 {% block script-other %}

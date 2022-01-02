@@ -17,5 +17,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<str:q>', views.index, name='index'),
+    path('', views.index, {'query': ''}, name='index_empty'),
+    path('<str:query>', views.index, name='index'),
 ]

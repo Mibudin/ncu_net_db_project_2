@@ -1,31 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.conf import settings
 
-from .dic import WeblioDic, GogenyuraiDic
+from .dic import WeblioDic, GogenyuraiDic, DicEntry
 from .forms import SearchDicForm
+from .models import QueryRecord
 
 # Create your views here.
 
 
-def index(request: HttpRequest, q: str) -> HttpResponse:
+_weblio = WeblioDic()
+_gogen = GogenyuraiDic()
+
+
+def index(request: HttpRequest, query: str) -> HttpResponse:
+    dics: list[DicEntry] = []
     if request.method == 'POST':
         form = SearchDicForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect(reverse('index', kwargs={'q': form.cleaned_data['query']}))
+            return HttpResponseRedirect(reverse('index', kwargs={'query': form.cleaned_data['query']}))
 
     else:
-        form = SearchDicForm(initial={'query': q})
+        form = SearchDicForm(initial={'query': query})
 
-        weblio = WeblioDic()
-        weblio_de = weblio.search(q)
-        gogen = GogenyuraiDic()
-        gogen_de = gogen.search(q)
+        if query:
+            QueryRecord(query=query).save()
+            dics += _weblio.search(query)
+            dics += _gogen.search(query)
 
     context = {
+        'query': query,
         'form': form,
-        'host_url': 'http://localhost:8000/',
-        'dics': [weblio_de, gogen_de],
+        'host_url': settings.HOST_URL,
+        'dics': dics,
     }
 
     return render(request, 'index.html', context=context)
